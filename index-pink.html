@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Message from Baby</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style-pink.css">
+</head>
+<body>
+  <div class="page-shell">
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <main class="experience">
+      <h1>Scratch to open</h1>
+
+      <section class="scratch-wrapper">
+        <div class="scratch-card" id="scratchCard">
+          <div class="card-content" id="cardContent">
+            <div class="image-frame">
+              <!-- Replace "ultrasound.jpg" with your final ultrasound image file if needed. -->
+              <img src="ultrasound.jpg" alt="Ultrasound preview" class="ultrasound-image">
+            </div>
+
+            <div class="message-block">
+              <h2>A message from <span class="baby-word">Baby 👶</span></h2>
+              <p>
+                I&apos;ve been listening to all your guesses from inside Mum&apos;s tummy.<br>
+                Some of you think you know the answer.<br>
+                Some of you are very confident.
+              </p>
+              <p>
+                And some of you are about to be very surprised!<br>
+                I&apos;ve decided to keep everyone guessing for just a little longer.
+              </p>
+              <p>Ready?<br>The truth is coming</p>
+            </div>
+          </div>
+
+          <canvas
+            class="scratch-layer"
+            id="scratchLayer"
+            aria-label="Scratch here to reveal Baby's message"
+          ></canvas>
+
+          <div class="scratch-hint" id="scratchHint">
+            <span>Scratch here</span>
+          </div>
+        </div>
+        <button class="help-button" id="helpRevealButton" type="button" hidden>Having trouble? Reveal now</button>
+      </section>
+
+      <div class="reveal-actions" id="revealActions" hidden>
+        <button class="message-popup" id="readyButton" type="button" aria-label="Baby has sent a message">
+          <span class="message-popup-icon">💬</span>
+          <span class="message-popup-copy">
+            <span class="message-popup-label">New message from Baby</span>
+            <span class="message-popup-title">Baby has sent everyone a message</span>
+          </span>
+        </button>
+      </div>
+    </main>
+
+    <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="countdownText">
+      <div class="countdown-panel" id="countdownPanel" hidden>
+        <p class="countdown-kicker">Almost time</p>
+        <div class="countdown-display" aria-live="polite" aria-atomic="true">
+          <span class="countdown-face" id="leftBabyFace">👶</span>
+          <span class="countdown-number" id="countdownNumber">10</span>
+          <span class="countdown-face" id="rightBabyFace">👶</span>
+        </div>
+        <p class="countdown-text" id="countdownText">Opening in 10 seconds...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Replace "baby-voice.mp3" with a real baby-style recording for the best voice effect. -->
+  <audio id="babyVoiceAudio" preload="auto">
+    <source src="baby-voice.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="script-pink.js"></script>
+</body>
+</html>

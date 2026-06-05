@@ -216,7 +216,7 @@ function beginScratch(event) {
 function launchConfetti() {
   confettiLayer.innerHTML = "";
 
-  const colors = ["#f4fbff", "#7bc8ff", "#39a6ff", "#c2e9ff", "#1f95f2"];
+  const colors = ["#fff5fa", "#ffb9d5", "#ff89bb", "#ff5fa2", "#ffd6e8"];
 
   for (let i = 0; i < 44; i += 1) {
     const piece = document.createElement("span");
@@ -270,6 +270,37 @@ function playMessageChime() {
     oscillator.start(now + note.start);
     oscillator.stop(now + note.start + note.duration);
   });
+}
+
+function playCountdownTick() {
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+
+  if (!AudioContextClass) {
+    return;
+  }
+
+  if (!audioContext) {
+    audioContext = new AudioContextClass();
+  }
+
+  if (audioContext.state === "suspended") {
+    audioContext.resume().catch(() => {});
+  }
+
+  const now = audioContext.currentTime;
+  const gain = audioContext.createGain();
+  const oscillator = audioContext.createOscillator();
+
+  oscillator.type = "triangle";
+  oscillator.frequency.setValueAtTime(880, now);
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.22, now + 0.01);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.14);
+
+  oscillator.connect(gain);
+  gain.connect(audioContext.destination);
+  oscillator.start(now);
+  oscillator.stop(now + 0.14);
 }
 
 function showMessagePrompt() {
@@ -406,6 +437,7 @@ function startCountdown() {
 
   let secondsRemaining = COUNTDOWN_SECONDS;
   renderCountdown(secondsRemaining);
+  playCountdownTick();
 
   const tick = () => {
     secondsRemaining -= 1;
@@ -416,6 +448,7 @@ function startCountdown() {
       return;
     }
 
+    playCountdownTick();
     countdownTimeout = window.setTimeout(tick, 1000);
   };
 
